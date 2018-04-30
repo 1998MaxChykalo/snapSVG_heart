@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+  <script src="snap.svg-min.js"></script>
+</head>
+<body>
+  <div class="preloader">
+    <svg id="preloader__logo"></svg>
+  </div>
+  <script>
+    var paper = Snap('#preloader__logo');
+    console.log();
+    var renderNodes = function(i) {
+      let radius = Math.random > .5 ? 2 : 3;
+      var node = paper.circle(pos[i].x, pos[i].y, radius);
+      node.attr({
+        fill: '#fff'
+      })
+    }
+
+    var drawPath = function(i) {
+      var path = paper
+                  .path(`M ${pos[i].x}, ${pos[i].y}`)
+                  .attr({
+                    fill: 'transparent',
+                    stroke: '#fff',
+                    strokeWidth: 1
+                  })
+                  .animate(
+                    {
+                      d: `M ${pos[i].x}, ${pos[i].y} L ${pos[i+1].x}, ${pos[i+1].y}`,
+                    },
+                    150,
+                    mina.easeinout,
+                    function() {
+                      renderNodes(i);
+                      drawPath(i+1);
+                    }
+                  )
+                  .animate({
+                    stroke: '#f0f'
+                  }, 500)
+    };
+
+    var pos = [
+      {
+        x: 133,
+        y: 107,
+      },
+      {
+        x: 202,
+        y: 106,
+      },
+      {
+        x: 249,
+        y: 144,
+      },
+      {
+        x: 297,
+        y: 104,
+      },
+      {
+        x: 354,
+        y: 102,
+      },
+      {
+        x: 391,
+        y: 139,
+      },
+      {
+        x: 401,
+        y: 201,
+      },
+      {
+        x: 374,
+        y: 246,
+      },
+      {
+        x: 247,
+        y: 363,
+      },
+      {
+        x: 137,
+        y: 259,
+      },
+      {
+        x: 99,
+        y: 213,
+      },
+      {
+        x: 99,
+        y: 153,
+      },
+      {
+        x: 133,
+        y: 107,
+      },
+      { x: 164, y: 174 },
+      { x: 171, y: 117 },
+      { x: 133, y: 106 },
+      { x: 201, y: 106 },
+      { x: 170, y: 118 },
+      { x: 248, y: 143 },
+      { x: 165, y: 173 },
+      { x: 170, y: 117 },
+      { x: 133, y: 106 },
+      { x: 165, y: 173 },
+      { x: 99, y: 153 },
+      { x: 117, y: 182 },
+      { x: 99, y: 212 },
+      { x: 136, y: 258 },
+      { x: 117, y: 182 },
+      { x: 165, y: 173 },
+      { x: 136, y: 258 },
+      { x: 117, y: 182 },
+      { x: 163, y: 174 },
+      { x: 269, y: 197 },
+      { x: 248, y: 144 },
+      { x: 297, y: 103 },
+      { x: 270, y: 197 },
+      { x: 353, y: 102 },
+      { x: 401, y: 201 },
+      { x: 270, y: 197 },
+      { x: 373, y: 246 },
+      { x: 328, y: 268 },
+      { x: 270, y: 197 },
+      { x: 291, y: 306 },
+      { x: 328, y: 269 },
+      { x: 323, y: 282 },
+      { x: 292, y: 305 },
+      { x: 226, y: 331 },
+      { x: 191, y: 301 },
+      { x: 270, y: 197 },
+      { x: 291, y: 306 },
+      { x: 246, y: 363 },
+      { x: 226, y: 332 }
+  ]
+
+    var i = 0;
+
+    drawPath(i);
+    // let res = [];
+    document.onclick = function(ev) {
+      let coords = {x: ev.clientX, y: ev.clientY};
+      pos.push(coords);
+      console.log(coords);
+      drawPath(pos.length - 2);
+    }
+  </script>
+  <!-- <script src="main.js"></script> -->
+</body>
+</html>
